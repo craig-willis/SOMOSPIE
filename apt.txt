@@ -1,0 +1,5 @@
+libcurl4
+r-base-core
+libgdal-dev
+libudunits2-dev
+libssl-dev
