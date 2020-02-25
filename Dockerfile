@@ -13,6 +13,8 @@ COPY environment.yml /tmp
 
 RUN Rscript /tmp/install.R
 
-RUN conda install --file /tmp/environment.yml
+#RUN conda update --name base conda && conda update --name base -f /tmp/environment.yml
+#RUN conda update --name base -f /tmp/environment.yml
 
+RUN conda env update --name base -f /tmp/environment.yml
 USER $NB_USER
