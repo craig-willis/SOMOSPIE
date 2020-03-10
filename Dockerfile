@@ -8,13 +8,13 @@ RUN apt update -qqy && \
     add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' && \
     apt-get install -y libcurl4 r-base-core r-base-dev libgdal-dev libudunits2-dev libssl-dev 
 
-COPY install.R /tmp
-COPY environment.yml /tmp
+COPY . /home/jovyan/work
 
-RUN Rscript /tmp/install.R
+RUN Rscript /home/jovyan/work/install.R
+RUN conda env update --name base -f /home/jovyan/work/environment.yml 
 
-#RUN conda update --name base conda && conda update --name base -f /tmp/environment.yml
-#RUN conda update --name base -f /tmp/environment.yml
+RUN cd /home/jovyan/work && \ 
+    git submodule update --init --recursive && \ 
+    touch code/ipywe/__init__.py
 
-RUN conda env update --name base -f /tmp/environment.yml
 USER $NB_USER
